@@ -1,0 +1,8 @@
+<h2><a href = {% url 'home'%}>Task</a></h2>
+
+<form method = 'POST'>
+    {% csrf_token %}
+    {{ form }}
+    <input type = "submit" name = 'update' value = 'Update'/>
+    <input type = "submit" name = 'delete' value = 'Delete'/>
+</form>

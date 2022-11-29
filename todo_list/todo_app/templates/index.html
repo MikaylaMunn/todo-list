@@ -6,8 +6,6 @@
     {{ form }}
     <input type = "submit" name = 'create' value = 'create'/>
 </form>
-<ul>
-    {%for task in task_list%}
-    <li>{{ task.description }}</li>
-    {%endfor%}
-</ul>
+{% for task in task_list %}
+<li><a href="{% url 'task_detail' task.id %}">{{ task.description }}</a></li>
+{% endfor %}

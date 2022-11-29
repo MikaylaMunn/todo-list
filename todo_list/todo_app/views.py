@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from django.views import View
 # Create your views here.
 
@@ -23,13 +23,25 @@ class HomeView(View):
         tasks = Task.objects.all()
         task_form = TaskForm(request.POST)
         task_form.save()
-        html_data =  {
-            'task_list': tasks,
-            'form': task_form
+        return redirect('home')
+class TaskDetailView(View):
+    def get(self,request,task_id):
+        task = Task.objects.get(id=task_id)
+        task_form = TaskForm(instance=task)
+        html_data = {
+            'task': task,
+            'form' : task_form,
         }
-        return render(
+        return render (
             request = request,
-            template_name= 'index.html',
-           
+            template_name= 'details.html',
             context = html_data
         )
+    def post(self, request, task_id):
+        task = Task.objects.get(id=task_id)
+        task_form = TaskForm(request.POST, instance = task)
+        if 'update' in request.POST: 
+            task_form.save()
+        elif 'delete' in request.POST:
+            task.delete()
+        return redirect('home')
