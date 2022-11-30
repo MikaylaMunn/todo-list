@@ -6,3 +6,13 @@
     <input type = "submit" name = 'update' value = 'Update'/>
     <input type = "submit" name = 'delete' value = 'Delete'/>
 </form>
+
+<form method = 'POST'>
+    {% csrf_token %}
+    {{ comment_form }}
+    <input type = "submit" name = 'add' value = 'Add'/>
+</form>
+
+{% for comment in comment_list %}
+<li>{{ comment.body}}</li>
+{% endfor %}
