@@ -1,8 +1,12 @@
 from django.db import models
 
 # Create your models here.
+class Tag(models.Model):
+    name = models.CharField(max_length = 30, unique = True)
 class Task(models.Model):
+    # this is the input field with a length
     description = models.CharField(max_length=255)
+    tags = models.ManyToManyField(Tag)
 class Comment(models.Model):
     body = models.TextField()
     created_at = models.DateTimeField(auto_now_add = True)
