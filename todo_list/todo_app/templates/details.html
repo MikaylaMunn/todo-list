@@ -6,13 +6,25 @@
     <input type = "submit" name = 'update' value = 'Update'/>
     <input type = "submit" name = 'delete' value = 'Delete'/>
 </form>
+<hr>
+<form method = 'POST'>
+    {% csrf_token %}
+    {{ tag_form }}
+    <input type = "submit" name = 'tag' value = 'Tag'/>
+</form>
 
+{% for tag in tag_list %}
+    <li style = 'display:inline' 'list-style-type:none'>{{ tag.name }} | </li>
+{% endfor %}
+
+<hr>
+{% comment %} this is the text field  {% endcomment %}
 <form method = 'POST'>
     {% csrf_token %}
     {{ comment_form }}
     <input type = "submit" name = 'add' value = 'Add'/>
 </form>
-
+{% comment %} for looping over the comments and displaying them in a list {% endcomment %}
 {% for comment in comment_list %}
 <li>{{ comment.body}}</li>
 {% endfor %}
